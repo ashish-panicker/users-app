@@ -1,7 +1,8 @@
 <section class="bg-white dark:bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new user</h2>
-        <form [formGroup]="userFormGroup" (submit)="createUser()">
+        <form [formGroup]="userFormGroup"
+            (ngSubmit)="createUser()">
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div class="sm:col-span-2">
                     <label for="name"
@@ -9,9 +10,18 @@
                     <input type="text"
                         name="userName"
                         formControlName="userName"
+                        [ngClass]="{
+                                'bg-red-50 border border-red-500 text-red-900': 
+                                f['userName'].invalid && (f['userName'].dirty || f['userName'].touched)
+                            }"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Type the user name"
                         required />
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+                        *ngIf="f['userName'].invalid && (f['userName'].dirty || f['userName'].touched)">
+                        <span class="font-medium">Error!</span>
+                        Username is mandatory!
+                    </p>
                 </div>
                 <div class="w-full">
                     <label for="brand"
@@ -19,9 +29,18 @@
                     <input type="password"
                         name="password"
                         formControlName="password"
+                        [ngClass]="{
+                            'bg-red-50 border border-red-500 text-red-900': 
+                            f['password'].invalid && (f['password'].dirty || f['password'].touched)
+                        }"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Password"
                         required />
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+                        *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">
+                        <span class="font-medium">Error!</span>
+                        Password is mandatory!
+                    </p>
                 </div>
                 <div class="w-full">
                     <label for="price"
@@ -29,9 +48,18 @@
                     <input type="password"
                         name="repeatPassword"
                         formControlName="repeatPassword"
+                        [ngClass]="{
+                            'bg-red-50 border border-red-500 text-red-900': 
+                            f['repeatPassword'].invalid && (f['repeatPassword'].dirty || f['repeatPassword'].touched)
+                        }"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Repeat Password"
                         required />
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"
+                        *ngIf="f['repeatPassword'].invalid && (f['repeatPassword'].dirty || f['repeatPassword'].touched)">
+                        <span class="font-medium">Error!</span>
+                        Password confirmation is mandatory!
+                    </p>
                 </div>
                 <div>
                     <label for="category"
@@ -65,13 +93,11 @@
                         placeholder="Your description here"></textarea>
                 </div>
             </div>
-            <!-- <button type="submit"
-                class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                Add User
-            </button> -->
             <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-3">Add
+                [disabled]="userFormGroup.invalid"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-3 disabled:bg-blue-300">Add
                 User</button>
         </form>
+
     </div>
 </section>

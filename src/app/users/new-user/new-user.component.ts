@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import {  NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
@@ -7,7 +7,7 @@ import { User } from '../../model/user';
 @Component({
   selector: 'app-new-user',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule],
+  imports: [NgFor, NgIf,NgClass,  ReactiveFormsModule],
   templateUrl: './new-user.component.html',
   styleUrl: './new-user.component.css'
 })
@@ -15,6 +15,8 @@ export class NewUserComponent {
 
   userCategories: string[] = ['Administrator', 'Manager', 'Assistant', 'Operator', 'Recovery']
   userStatus: string[] = ['Yes', 'No']
+  submitted: boolean = false
+  valid: boolean = false
 
   userFormGroup: FormGroup = new FormGroup({
     userName: new FormControl('', Validators.required),
@@ -28,6 +30,9 @@ export class NewUserComponent {
   constructor(private userService: UserService) {
 
   }
+  get f(){
+    return this.userFormGroup.controls
+  }
 
   createUser() {
     console.log(this.userFormGroup.value)
@@ -39,6 +44,7 @@ export class NewUserComponent {
       this.userFormGroup.controls['description'].value,
     ))
     console.log(this.userService.findAll())
+
   }
 
 
