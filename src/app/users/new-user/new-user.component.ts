@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../model/user';
 import { PasswordMatcherDirective } from '../../shared/directives/password-matcher.directive';
@@ -14,8 +14,8 @@ import { PasswordMatcherDirective } from '../../shared/directives/password-match
 })
 export class NewUserComponent {
 
-  userCategories: string[] = ['Administrator', 'Manager', 'Assistant', 'Operator', 'Recovery']
-  userStatus: string[] = ['Yes', 'No']
+  userCategories: string[] = ['Select', 'Administrator', 'Manager', 'Assistant', 'Operator', 'Recovery']
+  userStatus: string[] = ['Select', 'Yes', 'No']
   submitted: boolean = false
   valid: boolean = false
 
@@ -23,8 +23,8 @@ export class NewUserComponent {
     userName: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     repeatPassword: new FormControl('', Validators.required),
-    category: new FormControl(''),
-    status: new FormControl(''),
+    category: new FormControl(this.userCategories[0], this.defaultValueSelected),
+    status: new FormControl(this.userStatus[0], this.defaultValueSelected),
     description: new FormControl('')
   })
 
@@ -33,6 +33,10 @@ export class NewUserComponent {
   }
   get f() {
     return this.userFormGroup.controls
+  }
+
+  defaultValueSelected(control: AbstractControl): { [key: string]: any } | null {
+    return control.value === 'Select' ? { defaultValueSelected: true } : null
   }
 
   createUser() {

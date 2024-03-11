@@ -69,14 +69,24 @@
                 </div>
                 <div>
                     <label for="category"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
                     <select id="category"
                         name="category"
                         formControlName="category"
+                        [ngClass]="{
+                            'bg-red-50 border border-red-500 text-red-900': 
+                                (f['category'].dirty || f['category'].touched) && 
+                                (f['category'].hasError('defaultValueSelected'))
+                            }"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         <option [value]="category"
                             *ngFor="let category of userCategories">{{category}}</option>
                     </select>
+                    <div class="mt-2 text-sm text-red-600 dark:text-red-500"
+                        *ngIf="(f['category'].dirty || f['category'].touched)  && f['category'].hasError('defaultValueSelected')">
+                        <span class="font-medium">Error!</span>
+                        Please select a category
+                    </div>
                 </div>
                 <div>
                     <label for="item-weight"
@@ -84,10 +94,20 @@
                     <select id="active"
                         name="status"
                         formControlName="status"
+                        [ngClass]="{
+                            'bg-red-50 border border-red-500 text-red-900': 
+                                (f['status'].dirty || f['status'].touched) && 
+                                (f['status'].hasError('defaultValueSelected'))
+                            }"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         <option *ngFor="let status of userStatus"
                             [value]="status">{{status}}</option>
                     </select>
+                    <div class="mt-2 text-sm text-red-600 dark:text-red-500"
+                        *ngIf="(f['status'].dirty || f['status'].touched) && f['status'].hasError('defaultValueSelected')">
+                        <span class="font-medium">Error!</span>
+                        Please select a value
+                    </div>
                 </div>
                 <div class="sm:col-span-2">
                     <label for="description"
