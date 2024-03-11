@@ -5,6 +5,22 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   selector: '[appPasswordMatcher]',
   standalone: true,
   providers:[{provide: NG_VALIDATORS, multi: true, useExisting: PasswordMatcherDirective}]
+  /**
+   * Providers are objects that can create or deliver dependencies, typically services, to classes that require them.
+   * 
+   * { provide: NG_VALIDATORS, useExisting: PasswordMatchDirective, multi: true } is used in Angular 
+   * to provide your custom validator directive (PasswordMatchDirective) to the Angular forms module. 
+   * 
+   * { provide: NG_VALIDATORS, ... }: This specifies that you're providing a validator to the Angular forms module. 
+   * NG_VALIDATORS is an injection token provided by Angular for this purpose.
+   * 
+   * useExisting: PasswordMatcherDirective: This tells Angular to use the existing instance of your 
+   * PasswordMatcherDirective class as the validator.
+   * 
+   * multi: true: This specifies that your PasswordMatchDirective is not the only validator 
+   * provided for the NG_VALIDATORS token. It allows you to provide multiple validators for the same and 
+   * Angular will combine them.
+   */
 })
 export class PasswordMatcherDirective implements Validator {
 
@@ -18,7 +34,7 @@ export class PasswordMatcherDirective implements Validator {
 
     if (!targetControl) { return null }
 
-    if (control.valid !== targetControl?.value) {
+    if (control.value !== targetControl?.value) {
       return { passwordMismatch: true }
     }
     return null
