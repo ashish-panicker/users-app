@@ -66,7 +66,7 @@ export class NewUserComponent {
 
   createUser() {
     const user = new User(
-      this.userService.getNeUserId(),
+      this.userService.getNewUserId(),
       this.f['userName'].value,
       this.f['password'].value,
       this.f['category'].value,

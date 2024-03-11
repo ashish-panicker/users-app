@@ -14,7 +14,7 @@ export class UserService {
   private userCategories: string[] = ['Select', 'Administrator', 'Manager', 'Assistant', 'Operator', 'Recovery']
   private departments: string[] = ['Select', 'Sales', 'Support', 'Engineering', 'Management']
 
-  getNeUserId(): number {
+  getNewUserId(): number {
     return this.id + 1
   }
 
@@ -34,7 +34,14 @@ export class UserService {
     return this.users
   }
 
+  getUserByUserId(id: number): User | undefined {
+    return this.users.filter(user => user.id === +id).pop()
+  }
+
+  deleteUserById(id: number): void {
+    const index = this.users.findIndex(user => user.id === +id);
+    if (index !== -1) {
+      this.users.splice(index, 1);
+    }
+  }
 }
-/**
- * DI also known as Inversion Of Control
- */
