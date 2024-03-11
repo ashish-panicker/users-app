@@ -23,6 +23,28 @@
                         Username is mandatory!
                     </p>
                 </div>
+                <div class="sm:col-span-2">
+                    <label for="department"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User department</label>
+
+                    <select id="department"
+                        name="department"
+                        formControlName="department"
+                        [ngClass]="{
+                            'bg-red-50 border border-red-500 text-red-900 dark:bg-red-50 dark:border dark:border-red-500 dark:text-red-700': 
+                                (f['department'].dirty || f['department'].touched) && 
+                                (f['department'].hasError('defaultValueSelected'))
+                            }"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option *ngFor="let department of departments"
+                            [value]="department">{{department}}</option>
+                    </select>
+                    <div class="mt-2 text-sm text-red-600 dark:text-red-400"
+                        *ngIf="(f['department'].dirty || f['department'].touched) && f['department'].hasError('defaultValueSelected')">
+                        <span class="font-medium">Error!</span>
+                        Please select a department
+                    </div>
+                </div>
                 <div class="w-full">
                     <label for="password"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
@@ -91,7 +113,7 @@
                 <div>
                     <label for="status"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Active</label>
-                    <select id="active"
+                    <select id="status"
                         name="status"
                         formControlName="status"
                         [ngClass]="{
@@ -109,20 +131,12 @@
                         Please select a value
                     </div>
                 </div>
-                <div class="sm:col-span-2">
-                    <label for="description"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                    <textarea name="description"
-                        formControlName="description"
-                        rows="8"
-                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Your description here"></textarea>
-                </div>
+              
             </div>
             <button type="submit"
                 [disabled]="userFormGroup.invalid"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-3 disabled:bg-blue-300">
-                AddUser
+                Add new User
             </button>
         </form>
 

@@ -6,13 +6,31 @@ import { User } from '../../model/user';
 })
 export class UserService {
 
-  private users: User[] = []
+  private id: number = 3
+  private users: User[] = [
+    new User(1, 'John Doe', 'password', 'Manager', 'Yes', 'Sales'),
+    new User(2, 'Jane Doe', 'password', 'Administrator', 'Yes', 'Engineering'),
+  ]
+  private userCategories: string[] = ['Select', 'Administrator', 'Manager', 'Assistant', 'Operator', 'Recovery']
+  private departments: string[] = ['Select', 'Sales', 'Support', 'Engineering', 'Management']
+
+  getNeUserId(): number {
+    return this.id + 1
+  }
+
+  getUserCategories(): string[] {
+    return this.userCategories
+  }
+
+  getDepartments(): string[] {
+    return this.departments
+  }
 
   create(user: User) {
     this.users.push(user)
   }
 
-  findAll() {
+  getAllUsers() {
     return this.users
   }
 

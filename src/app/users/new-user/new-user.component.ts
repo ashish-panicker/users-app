@@ -1,6 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../model/user';
 import { PasswordMatcherDirective } from '../../shared/directives/password-matcher.directive';
@@ -14,41 +14,72 @@ import { PasswordMatcherDirective } from '../../shared/directives/password-match
 })
 export class NewUserComponent {
 
-  userCategories: string[] = ['Select', 'Administrator', 'Manager', 'Assistant', 'Operator', 'Recovery']
+  userCategories: string[] = []
   userStatus: string[] = ['Select', 'Yes', 'No']
-  submitted: boolean = false
-  valid: boolean = false
+  departments: string[] = []
 
-  userFormGroup: FormGroup = new FormGroup({
-    userName: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    repeatPassword: new FormControl('', Validators.required),
-    category: new FormControl(this.userCategories[0], this.defaultValueSelected),
-    status: new FormControl(this.userStatus[0], this.defaultValueSelected),
-    description: new FormControl('')
-  })
+  userFormGroup: FormGroup
 
-  constructor(private userService: UserService) {
+  /**
+   * userFormGroup: FormGroup = new FormGroup({
+      userName: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      repeatPassword: new FormControl('', Validators.required),
+      category: new FormControl(this.userCategories[0], this.defaultValueSelected),
+      status: new FormControl(this.userStatus[0], this.defaultValueSelected),
+      description: new FormControl('')
+    })
+   * @param fb            FormBuilder from angular/forms
+   * @param userService   UserService, custom service
+   */
 
+  constructor(private fb: FormBuilder, private userService: UserService) {
+
+    this.userCategories = userService.getUserCategories()
+
+    this.departments = userService.getDepartments()
+
+    this.userFormGroup = this.fb.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required],
+      repeatPassword: ['', Validators.required],
+      category: [this.userCategories[0], this.defaultValueSelected],
+      status: [this.userStatus[0], this.defaultValueSelected],
+      department: [this.departments[0], this.defaultValueSelected],
+    })
   }
+
   get f() {
     return this.userFormGroup.controls
   }
 
-  defaultValueSelected(control: AbstractControl): { [key: string]: any } | null {
+  defaultValueSelected(control: AbstractControl): { [key: string]: boolean } | null {
     return control.value === 'Select' ? { defaultValueSelected: true } : null
+    /**
+     * if(contro.value === 'Select'){
+     *  return { defaultValueSelected: true }
+     * } else {
+     *  return null
+     * }
+     */
   }
 
   createUser() {
-    console.log(this.userFormGroup.value)
-    this.userService.create(new User(
-      this.userFormGroup.controls['userName'].value,
-      this.userFormGroup.controls['password'].value,
-      this.userFormGroup.controls['category'].value,
-      this.userFormGroup.controls['status'].value,
-      this.userFormGroup.controls['description'].value,
-    ))
-    console.log(this.userService.findAll())
+    const user = new User(
+      this.userService.getNeUserId(),
+      this.f['userName'].value,
+      this.f['password'].value,
+      this.f['category'].value,
+      this.f['status'].value,
+      this.f['department'].value,
+    )
+    this.userService.create(user)
+    console.log(this.userService.getAllUsers())
+    this.resetForm()
+  }
+
+  resetForm() {
+    this.userFormGroup.reset()
 
   }
 
