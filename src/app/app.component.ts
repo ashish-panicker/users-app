@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { HomeComponent } from './shared/home/home.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { HomeComponent } from './shared/components/home/home.component';
 import { ListUsersComponent } from './users/list-users/list-users.component';
 import { NewUserComponent } from './users/new-user/new-user.component';
 import { RouterOutlet } from '@angular/router';

@@ -1,13 +1,14 @@
-import {  NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../shared/services/user.service';
 import { User } from '../../model/user';
+import { PasswordMatcherDirective } from '../../shared/directives/password-matcher.directive';
 
 @Component({
   selector: 'app-new-user',
   standalone: true,
-  imports: [NgFor, NgIf,NgClass,  ReactiveFormsModule],
+  imports: [NgFor, NgIf, NgClass, ReactiveFormsModule, PasswordMatcherDirective],
   templateUrl: './new-user.component.html',
   styleUrl: './new-user.component.css'
 })
@@ -30,7 +31,7 @@ export class NewUserComponent {
   constructor(private userService: UserService) {
 
   }
-  get f(){
+  get f() {
     return this.userFormGroup.controls
   }
 

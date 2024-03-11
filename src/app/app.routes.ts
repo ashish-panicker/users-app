@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './shared/home/home.component';
+import { HomeComponent } from './shared/components/home/home.component';
 import { ListUsersComponent } from './users/list-users/list-users.component';
 import { NewUserComponent } from './users/new-user/new-user.component';
-import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 /**
  * Each route comprises of a path and a component that is mapped for that path.
