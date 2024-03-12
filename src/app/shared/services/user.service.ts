@@ -4,12 +4,12 @@ import { User } from '../../model/user';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserInMemoryService {
 
   private id: number = 3
   private users: User[] = [
-    new User(1, 'John Doe', 'password', 'Manager', 'Yes', 'Sales'),
-    new User(2, 'Jane Doe', 'password', 'Administrator', 'Yes', 'Engineering'),
+    // new User(1, 'John Doe', 'password', 'Manager', 'Yes', 'Sales'),
+    // new User(2, 'Jane Doe', 'password', 'Administrator', 'Yes', 'Engineering'),
   ]
   private userCategories: string[] = ['Select', 'Administrator', 'Manager', 'Assistant', 'Operator', 'Recovery']
   private departments: string[] = ['Select', 'Sales', 'Support', 'Engineering', 'Management']

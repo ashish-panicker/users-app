@@ -1,9 +1,9 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../shared/services/user.service';
 import { User } from '../../model/user';
 import { PasswordMatcherDirective } from '../../shared/directives/password-matcher.directive';
+import { UserHttpService } from '../../shared/services/user-http.service';
 
 @Component({
   selector: 'app-new-user',
@@ -33,11 +33,7 @@ export class NewUserComponent {
    * @param userService   UserService, custom service
    */
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
-
-    this.userCategories = userService.getUserCategories()
-
-    this.departments = userService.getDepartments()
+  constructor(private fb: FormBuilder, private userService: UserHttpService) {
 
     this.userFormGroup = this.fb.group({
       userName: ['', Validators.required],
@@ -46,6 +42,13 @@ export class NewUserComponent {
       category: [this.userCategories[0], this.defaultValueSelected],
       status: [this.userStatus[0], this.defaultValueSelected],
       department: [this.departments[0], this.defaultValueSelected],
+    })
+
+    userService.getDepartments().subscribe({
+      next: response => { response.forEach(dep => this.departments.push(dep.department)) }
+    })
+    userService.getCategories().subscribe({
+      next: response => { response.forEach(ct => this.userCategories.push(ct.category)) }
     })
   }
 
@@ -66,15 +69,17 @@ export class NewUserComponent {
 
   createUser() {
     const user = new User(
-      this.userService.getNewUserId(),
       this.f['userName'].value,
       this.f['password'].value,
       this.f['category'].value,
       this.f['status'].value,
       this.f['department'].value,
     )
-    this.userService.create(user)
-    console.log(this.userService.getAllUsers())
+    this.userService.createUser(user).subscribe({
+      next: user => console.log(user.id),
+      error: err => console.error(err),
+      complete: console.log
+    })
     this.resetForm()
   }
 

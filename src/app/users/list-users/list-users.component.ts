@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ShowUserComponent } from '../show-user/show-user.component';
-import { UserService } from '../../shared/services/user.service';
+import { UserInMemoryService } from '../../shared/services/user.service';
 import { User } from '../../model/user';
 
 @Component({
@@ -14,7 +14,7 @@ export class ListUsersComponent {
 
   users:User[]
 
-  constructor(private userService: UserService){
+  constructor(private userService: UserInMemoryService){
     this.users = userService.getAllUsers()
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../shared/services/user.service';
+import { UserInMemoryService } from '../../shared/services/user.service';
 import { User } from '../../model/user';
 import { NgIf } from '@angular/common';
 
@@ -20,7 +20,7 @@ export class ConfirmActionComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: UserService
+    private service: UserInMemoryService
   ) {
 
     this.id = this.route.snapshot.paramMap.get('id') as unknown as number

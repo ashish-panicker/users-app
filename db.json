@@ -1,0 +1,67 @@
+{
+  "users": [
+    {
+      "id": "0c87",
+      "userName": "asdasd",
+      "password": "123",
+      "category": "Administrator",
+      "status": "Yes",
+      "department": "Sales"
+    },
+    {
+      "id": "9b74",
+      "userName": "sdsd",
+      "password": "111",
+      "category": "Administrator",
+      "status": "Yes",
+      "department": "HR"
+    }
+  ],
+  "departments": [
+    {
+      "id": 1,
+      "department": "HR"
+    },
+    {
+      "id": 2,
+      "department": "Sales"
+    },
+    {
+      "id": 3,
+      "department": "Support"
+    },
+    {
+      "id": 4,
+      "department": "Engineering"
+    },
+    {
+      "id": 5,
+      "department": "Management"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "category": "Administrator"
+    },
+    {
+      "id": 2,
+      "category": "Manager"
+    },
+    {
+      "id": 3,
+      "category": "Executive"
+    },
+    {
+      "id": 4,
+      "category": "Operation"
+    },
+    {
+      "id": 5,
+      "category": "Recovery"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
