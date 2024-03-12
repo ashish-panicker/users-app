@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ShowUserComponent {
 
-  @Input('users') users: User[] = []
+  @Input() users: User[] = []
 
 
 }

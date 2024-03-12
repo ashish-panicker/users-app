@@ -29,7 +29,7 @@ export class ConfirmActionComponent {
   }
 
   proceedToAction() {
-    if(!this.user){
+    if (!this.user) {
       this.router.navigateByUrl('/users/list-all')
     }
     this.service.deleteUserById(this.id)

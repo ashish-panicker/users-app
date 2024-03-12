@@ -26,7 +26,7 @@ export class PasswordMatcherDirective implements Validator {
 
   @Input('appPasswordMatcher') targetControlName: string = ''
 
-  validate(control: AbstractControl<any, any>): ValidationErrors | null {
+  validate(control: AbstractControl): ValidationErrors | null {
 
     if (!control.parent) { return null }
 
@@ -40,8 +40,8 @@ export class PasswordMatcherDirective implements Validator {
     return null
 
   }
-  registerOnValidatorChange?(fn: () => void): void {
+  // registerOnValidatorChange?(fn: () => void): void {
 
-  }
+  // }
 
 }
